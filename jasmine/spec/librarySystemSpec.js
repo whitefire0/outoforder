@@ -1,27 +1,55 @@
-describe('librarySystem Tests', function() {
+describe('Previous librarySystem Features', function() {
 
-  it('Expectation 1:', function(){
+  it('It should be able to handle the previous Beast Challenge order of use.', function(){
+    //generates the three libraries, with the last taking the dependencies created by the first two.
+
     libraryOrderSystem('name', [], function() {
       return 'Gordon';
-    }); // runs successfully and creates object property
+    }); 
   
     libraryOrderSystem('company', [], function() {
         return 'Watch and Code';
-    }); // runs successfully and creates object property
+    }); 
     
     libraryOrderSystem('workBlurb', ['name', 'company'], function(name, company) {
         return name + ' works at ' + company;
-    }); // runs successfully and creates object property using dependecies
+    }); 
     
-    //Use test functions
-    var previousSuccessResult = libraryOrderSystem('workBlurb'); // ==> returns "Gordon works at Watch and Code"
+    var normalLibraryOrder = libraryOrderSystem('workBlurb'); 
 
-    expect(previousSuccessResult).toBe('Gordon works at watch and code');
+    expect(normalLibraryOrder).toBe('Gordon works at Watch and Code');
+  });
+
+  
+});
+
+describe('libraryOrderSystem Features', function(){
+
+  xit('It should create a dependReqs property on the libraryOrderStorage object to store the number of dependency requirements.', function(){
+    
+    libraryOrderSystem('name', [], function() {
+      return 'Gordon';
+    });
+
+    expect(libraryOrderStorage['name'].libraryContent).toBe('Gordon')
 
   });
 
-  it('Expectation 2:', function(){
-    expect().nothing();
+  it('It should set the libraryOrderSystem create case return value to a seperate libraryContent property on the libraryOrderStorage object', function(){
+    
+    var storageTester;
+
+    //
+    libraryOrderSystem('name', [], function() {
+      return 'Gordon';
+    });
+
+    libraryOrderSystem('getStorage')
+
+    expect(libraryOrderStorage['name'].libraryContent).toBe('Gordon');
+
   });
+
+  
 
 });

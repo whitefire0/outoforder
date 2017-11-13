@@ -14,19 +14,19 @@
 
 /*Your task is to rewrite librarySystem so that the following code works too. The only difference is that we're loading the libraries out of order (i.e. 'workBlurb' is created before its dependencies, 'name' and 'company').*/
 
-librarySystem('workBlurb', ['name', 'company'], function(name, company) {
-  return name + ' works at ' + company;
-});
+// librarySystem('workBlurb', ['name', 'company'], function(name, company) {
+//   return name + ' works at ' + company;
+// });
 
-librarySystem('name', [], function() {
-  return 'Gordon';
-});
+// librarySystem('name', [], function() {
+//   return 'Gordon';
+// });
 
-librarySystem('company', [], function() {
-  return 'Watch and Code';
-});
+// librarySystem('company', [], function() {
+//   return 'Watch and Code';
+// });
 
-librarySystem('workBlurb'); // 'Gordon works at Watch and Code'
+// librarySystem('workBlurb'); // 'Gordon works at Watch and Code'
 
 /*Your tests should ensure that libraries can be created out of order. They should also ensure that all the requirements from the previous challenge are still being met.
 
@@ -50,6 +50,12 @@ Notes/ideas
   var libraryOrderStorage = {};
 
   function libraryOrderSystem(libraryName, dependencies, callback) {
+
+    //for testing purposes only
+    if(libraryName === 'getStorage'){
+        return libraryOrderStorage;
+    }
+
     var passing = false;
     if(passing){
         //then don't run it again but simply an alert to user
@@ -69,7 +75,8 @@ Notes/ideas
         //Create Case (no dependencies)
         //if no dependencies are provided, it should execute callback and store the returned library object, along with a libraryOrderStorage property that indicates dependencies are not required
         if (dependencies.length < 1) {
-            libraryOrderStorage[libraryName] = callback();
+            libraryOrderStorage[libraryName].libraryContent = callback();
+            // libraryOrderStorage[libraryName].dependReqs = 0;
         
         //Create Case (1 or more dependencies)
         //if dependencies are present, it should execute callback and pass in the dependency library object paths, as well as create a libraryOrderStorage property that indicates dependencies are required
