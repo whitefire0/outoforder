@@ -101,6 +101,7 @@ Notes/ideas
 
 })();
 
+/*
 //Create test functions
 libraryOrderSystem('name', [], function() {
     return 'Gordon';
@@ -116,4 +117,4 @@ libraryOrderSystem('workBlurb', ['name', 'company'], function(name, company) {
 
 //Use test functions
 libraryOrderSystem('workBlurb'); // ==> returns "Gordon works at Watch and Code"
-
+*/
