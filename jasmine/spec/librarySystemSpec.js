@@ -20,36 +20,20 @@ describe('Previous librarySystem Features', function() {
     expect(normalLibraryOrder).toBe('Gordon works at Watch and Code');
   });
 
-  
-});
-
-describe('libraryOrderSystem Features', function(){
-
-  xit('It should create a dependReqs property on the libraryOrderStorage object to store the number of dependency requirements.', function(){
+  describe('libraryOrderSystem Features', function(){
     
-    libraryOrderSystem('name', [], function() {
-      return 'Gordon';
+      
+    
+     
+    
+      
     });
 
-    expect(libraryOrderStorage['name'].libraryContent).toBe('Gordon')
-
-  });
-
-  it('It should set the libraryOrderSystem create case return value to a seperate libraryContent property on the libraryOrderStorage object', function(){
-    
-    var storageTester;
-
-    //
-    libraryOrderSystem('name', [], function() {
-      return 'Gordon';
-    });
-
-    libraryOrderSystem('getStorage')
-
-    expect(libraryOrderStorage['name'].libraryContent).toBe('Gordon');
-
-  });
-
-  
-
 });
+
+
+
+libraryOrderSystem = {
+  libraryName: callback, //where the callback stores the creation of library
+  
+}

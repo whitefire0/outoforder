@@ -58,7 +58,7 @@ Notes/ideas
 
     var passing = false;
     if(passing){
-        //then don't run it again but simply an alert to user
+        //if library content is present then don't run it again but simply an alert to user
         console.log('This library has already been created. Here are the library contents:')
         //along with the library content
         //return libraryOrderStorage[libraryName];
@@ -75,11 +75,11 @@ Notes/ideas
         //Create Case (no dependencies)
         //if no dependencies are provided, it should execute callback and store the returned library object, along with a libraryOrderStorage property that indicates dependencies are not required
         if (dependencies.length < 1) {
-            libraryOrderStorage[libraryName].libraryContent = callback();
+            libraryOrderStorage[libraryName] = callback();
             // libraryOrderStorage[libraryName].dependReqs = 0;
         
         //Create Case (1 or more dependencies)
-        //if dependencies are present, it should execute callback and pass in the dependency library object paths, as well as create a libraryOrderStorage property that indicates dependencies are required
+        //if dependencies are present, it should execute callback and store the callback and dependencies in the object seperately
         } else {
             var dependencyLibraries = getLibrariesByName(dependencies);
 
