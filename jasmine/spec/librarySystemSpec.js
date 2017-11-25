@@ -1,39 +1,45 @@
-describe('Previous librarySystem Features', function() {
+describe('Project Specification Tests', function() {
 
-  it('It should be able to handle the previous Beast Challenge order of use.', function(){
-    //generates the three libraries, with the last taking the dependencies created by the first two.
-
-    libraryOrderSystem('name', [], function() {
-      return 'Gordon';
-    }); 
-  
-    libraryOrderSystem('company', [], function() {
-        return 'Watch and Code';
-    }); 
-    
-    libraryOrderSystem('workBlurb', ['name', 'company'], function(name, company) {
-        return name + ' works at ' + company;
-    }); 
-    
-    var normalLibraryOrder = libraryOrderSystem('workBlurb'); 
-
-    expect(normalLibraryOrder).toBe('Gordon works at Watch and Code');
+  it('It should accept a libraryName', function(){
+    expect().nothing();
   });
 
-  describe('libraryOrderSystem Features', function(){
-    
-      
-    
-     
-    
-      
+  it('It should accept a dependencies variable', function(){
+    expect().nothing();
+  });
+
+  it('It should accept a callback function', function(){
+    expect().nothing();
+  });
+
+  it('It should be able to store libraries with no dependencies', function(){
+    librarySystem('noDependencies', [], function() {
+      debugger;
+        return 'none';
     });
 
+    var noDependencies = librarySystem('noDependencies');
+
+    expect(noDependencies).toBe('none');
+
+  });
+
+  it('It should be able to store libraries with one dependency', function(){
+    expect().nothing();
+  });
+
+  it('It should be able to store libraries with two or more dependencies', function(){
+    expect().nothing();
+  });
+
+  it('It should run the callback function of each library only once', function(){
+    expect().nothing();
+  });
+
+  it('It should be able to create get get libraries regardless of the order', function(){
+    expect().nothing();
+  });
+
+    
+
 });
-
-
-
-libraryOrderSystem = {
-  libraryName: callback, //where the callback stores the creation of library
-  
-}
