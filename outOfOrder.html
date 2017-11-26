@@ -61,22 +61,42 @@ Check to see how the function is being used by arguments.length -> this leads to
       var cache = {};
 
       function librarySystem(libraryName, dependencies, libraryCallback) {
+
           if (arguments.length > 1) {
               // * --- Set library --- *
               if (libraryName in storage) {
-                  throw new Error('Library has already been stored. Access its contents by calling librarySystem(libraryName)');
+                  throw new Error(libraryName + ' has already been stored. Access its contents by calling librarySystem(libraryName)');
               } else {
                   storage[libraryName] = {
                       dependencies: dependencies,
                       callback: libraryCallback
                   };
-                  //for testing ONLY
-                  return storage[libraryName];
-              }
-          
-          } else {
 
+                  //for testing ONLY
+                  return storage;
+              }
+          } else {
               // * --- Get library --- *
+              var library, dependencies;
+
+              if (libraryName in cache) {
+                return cache[libraryName];
+              } 
+              
+              if (!libraryName in libraryStorage) {
+                throw new Error(libraryName + ' cannot be found. Please store library first or search for another library.')
+              } else {
+                library = storage[libraryName];
+                dependencies = library.dependencies;
+              }
+            
+              if (dependencies.length) {
+
+              }
+
+
+
+
 
           }
       
@@ -90,45 +110,130 @@ Check to see how the function is being used by arguments.length -> this leads to
 
   tests({
 
-    'It should be able to store libraries with two or more dependencies': function() {
+    /* ---------------------------------------------------------------------------------------------- */
 
-      var actualReturn = librarySystem('workBlurb', ['name', 'company'], function(name, company) {
+    'It should be able to store libraries with two or more dependencies:': function() {
+
+      var twoDependency = librarySystem('workBlurb', ['name', 'company'], function(name, company) {
       return name + ' works at ' + company;
       });
 
       // var expectedReturn = ['name', 'company'];
 
-      var expectedReturn = ['name', 'company'];
+      var expectedReturn = 'name,company';
 
-      console.log(actualReturn.dependencies);
-      console.log(expectedReturn);
+      eq(twoDependency['workBlurb'].dependencies, expectedReturn);
 
-      expect(actualReturn.dependencies).toBe(expectedReturn);
     },
 
-    'It should be able to store libraries with no dependencies': function() {
+    /* ---------------------------------------------------------------------------------------------- */
+
+    'It should be able to store libraries with no dependencies:': function() {
+
+      var noDependencies = librarySystem('name', [], function() {
+        return 'Gordon';
+      });
+
+      var expectedReturn = '';
+
+      eq(noDependencies['name'].dependencies, expectedReturn);
+
+      //repeat test for another library (at this point all required libraries have been stored within the storage object for future tests)
+      var noDependencies = librarySystem('company', [], function() {
+        return 'Watch and Code';
+      });
+
+      var expectedReturn = '';
+
+      eq(noDependencies['company'].dependencies, expectedReturn);
+
+    },
+
+    /* ---------------------------------------------------------------------------------------------- */
+
+    'It should be able to store libraries with one dependency:': function() {
+
+      var oneDependency = librarySystem('testOneDependency', ['test'], function() {
+        return 'Gordon';
+      });
+
+      var expectedReturn = 'test';
+
+      eq(oneDependency['testOneDependency'].dependencies, expectedReturn);
+    },
+
+    /* ---------------------------------------------------------------------------------------------- */
+
+    'It should run the callback function of each library only once:': function() {
+
+      var isTypeError = false;
+
+      try {
+        //run librarySystem for workBlurb for second time within tests({})
+        librarySystem('workBlurb', ['name', 'company'], function(name, company) {
+          return name + ' works at ' + company;
+        });
+      } catch(e) {
+        isTypeError = (e instanceof Error);
+      }
+
+      eq(isTypeError, true);
+
+
+      //reset and test another library
+      isTypeError = false;
+      
+      try {
+        //run librarySystem for name for second time within tests({})
+        librarySystem('name', [], function() {
+          return 'Gordon';
+        });
+      } catch(e) {
+        isTypeError = (e instanceof Error);
+      }
+
+      eq(isTypeError, true);
+
+
+      //reset and test another library
+      isTypeError = false;
+      
+      try {
+        //run librarySystem for compnay for second time within tests({})
+        librarySystem('company', [], function() {
+          return 'Watch and Code';
+        });
+      } catch(e) {
+        isTypeError = (e instanceof Error);
+      }
+
+      eq(isTypeError, true);
+
+    },
+
+    /* ---------------------------------------------------------------------------------------------- */
+
+    'It should be able to create and get libraries regardless of the order:': function() {
       fail();
     },
 
-    'It should be able to store libraries with one dependency': function() {
-      fail();
+    /* ---------------------------------------------------------------------------------------------- */
+
+    'It should be able to recognise and reject requests for invalid library names:': function() {
+      
+      var isTypeError = false;
+
+      try {
+        librarySystem('thisLibraryDoesntExist');
+      } catch(e) {
+        isTypeError = (e instanceof Error);
+      }
+
+      eq(isTypeError, true);
     },
 
-    'It should run the callback function of each library only once': function() {
-      fail();
-    },
+    /* ---------------------------------------------------------------------------------------------- */
 
-    'It should be able to create and get libraries regardless of the order': function() {
-      fail();
-    },
-
-    'It should be able to recognise and reject invalid library names': function() {
-      fail();
-    },
-
-    'It should be able to recognise and reject attempts to access libraries with invalid dependency names': function() {
-      fail();
-    }
   });
 
 </script>
