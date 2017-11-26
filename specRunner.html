@@ -127,7 +127,7 @@ In addition to the new loading order feature, your solution should ensure that t
       isTypeError = false;
       
       try {
-        //run librarySystem for compnay for second time within tests({})
+        //run librarySystem for company for second time within tests({})
         librarySystem('company', [], function() {
           return 'Watch and Code';
         });
@@ -142,7 +142,9 @@ In addition to the new loading order feature, your solution should ensure that t
     /* ---------------------------------------------------------------------------------------------- */
 
     'It should be able to create and get libraries regardless of the order:': function() {
-      fail();
+      var outOfOrder = librarySystem('workBlurb');
+
+      eq(outOfOrder, 'Gordon works at Watch and Code');
     },
 
     /* ---------------------------------------------------------------------------------------------- */
